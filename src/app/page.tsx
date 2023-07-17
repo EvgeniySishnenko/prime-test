@@ -1,16 +1,23 @@
+import TableContainer from "@/components/TableContainer";
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/posts", {
+  const response = await fetch("http://localhost:3000/api/trade-conditions", {
     cache: "no-store",
   });
 
-  if (!res.ok) {
+  if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
 
-  return res.json();
+  return response.json();
 }
 
-export default function Home() {
-  return <main></main>;
+export default async function Home() {
+  const tradeConditions = await getData();
+
+  return (
+    <main>
+      <TableContainer tradeConditions={tradeConditions} />
+    </main>
+  );
 }
 
